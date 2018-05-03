@@ -1,0 +1,5 @@
+simple
+  int : x ; 
+
+  x = y + 3 * z;
+end

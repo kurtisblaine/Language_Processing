@@ -1,0 +1,972 @@
+Terminals unused in grammar
+
+   tbegin
+   tend
+
+
+Grammar
+
+    0 $accept: p $end
+
+    1 p: prog
+
+    2 prog: tstart tfinish
+    3     | tstart DL SL tfinish
+
+    4 DL: DL D
+    5   | D
+
+    6 D: IDL ':' type ';'
+
+    7 IDL: IDL ',' tid
+    8    | tid
+
+    9 type: tint
+   10     | tfloat
+   11     | tbool
+
+   12 SL: SL S
+   13   | S
+
+   14 S: tprint tstrlit ';'
+   15  | tprint tid ';'
+   16  | tprintln ';'
+   17  | tid tassign expr ';'
+   18  | tif '(' cexpr ')' ':' SL '~'
+   19  | tif '(' cexpr ')' ':' SL '~' telse ':' SL '~'
+   20  | twhile '(' cexpr ')' ':' SL '~'
+   21  | error ';'
+
+   22 cexpr: expr tgt expr
+   23      | expr tlt expr
+   24      | expr teq expr
+   25      | expr tne expr
+   26      | tor cexpr '|' cexpr
+   27      | tand cexpr '|' cexpr
+   28      | '(' cexpr ')'
+
+   29 expr: expr '+' term
+   30     | term
+
+   31 term: term '*' factor
+   32     | factor
+
+   33 factor: tid
+   34       | tnum
+   35       | ttrue
+   36       | tfalse
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'(' (40) 18 19 20 28
+')' (41) 18 19 20 28
+'*' (42) 31
+'+' (43) 29
+',' (44) 7
+':' (58) 6 18 19 20
+';' (59) 6 14 15 16 17 21
+'|' (124) 26 27
+'~' (126) 18 19 20
+error (256) 21
+tstart (258) 2 3
+tfinish (259) 2 3
+tbegin (260)
+tend (261)
+tint (262) 9
+tfloat (263) 10
+tbool (264) 11
+tprint (265) 14 15
+tprintln (266) 16
+tif (267) 18 19
+telse (268) 19
+twhile (269) 20
+tlt (270) 23
+tgt (271) 22
+teq (272) 24
+tne (273) 25
+tfalse (274) 36
+ttrue (275) 35
+tassign (276) 17
+tstrlit (277) 14
+tid (278) 7 8 15 17 33
+tnum (279) 34
+tor (280) 26
+tand (281) 27
+
+
+Nonterminals, with rules where they appear
+
+$accept (36)
+    on left: 0
+p (37)
+    on left: 1, on right: 0
+prog (38)
+    on left: 2 3, on right: 1
+DL (39)
+    on left: 4 5, on right: 3 4
+D (40)
+    on left: 6, on right: 4 5
+IDL (41)
+    on left: 7 8, on right: 6 7
+type (42)
+    on left: 9 10 11, on right: 6
+SL (43)
+    on left: 12 13, on right: 3 12 18 19 20
+S (44)
+    on left: 14 15 16 17 18 19 20 21, on right: 12 13
+cexpr (45)
+    on left: 22 23 24 25 26 27 28, on right: 18 19 20 26 27 28
+expr (46)
+    on left: 29 30, on right: 17 22 23 24 25 29
+term (47)
+    on left: 31 32, on right: 29 30 31
+factor (48)
+    on left: 33 34 35 36, on right: 31 32
+
+
+State 0
+
+    0 $accept: . p $end
+
+    tstart  shift, and go to state 1
+
+    p     go to state 2
+    prog  go to state 3
+
+
+State 1
+
+    2 prog: tstart . tfinish
+    3     | tstart . DL SL tfinish
+
+    tfinish  shift, and go to state 4
+    tid      shift, and go to state 5
+
+    DL   go to state 6
+    D    go to state 7
+    IDL  go to state 8
+
+
+State 2
+
+    0 $accept: p . $end
+
+    $end  shift, and go to state 9
+
+
+State 3
+
+    1 p: prog .
+
+    $default  reduce using rule 1 (p)
+
+
+State 4
+
+    2 prog: tstart tfinish .
+
+    $default  reduce using rule 2 (prog)
+
+
+State 5
+
+    8 IDL: tid .
+
+    $default  reduce using rule 8 (IDL)
+
+
+State 6
+
+    3 prog: tstart DL . SL tfinish
+    4 DL: DL . D
+
+    error     shift, and go to state 10
+    tprint    shift, and go to state 11
+    tprintln  shift, and go to state 12
+    tif       shift, and go to state 13
+    twhile    shift, and go to state 14
+    tid       shift, and go to state 15
+
+    D    go to state 16
+    IDL  go to state 8
+    SL   go to state 17
+    S    go to state 18
+
+
+State 7
+
+    5 DL: D .
+
+    $default  reduce using rule 5 (DL)
+
+
+State 8
+
+    6 D: IDL . ':' type ';'
+    7 IDL: IDL . ',' tid
+
+    ':'  shift, and go to state 19
+    ','  shift, and go to state 20
+
+
+State 9
+
+    0 $accept: p $end .
+
+    $default  accept
+
+
+State 10
+
+   21 S: error . ';'
+
+    ';'  shift, and go to state 21
+
+
+State 11
+
+   14 S: tprint . tstrlit ';'
+   15  | tprint . tid ';'
+
+    tstrlit  shift, and go to state 22
+    tid      shift, and go to state 23
+
+
+State 12
+
+   16 S: tprintln . ';'
+
+    ';'  shift, and go to state 24
+
+
+State 13
+
+   18 S: tif . '(' cexpr ')' ':' SL '~'
+   19  | tif . '(' cexpr ')' ':' SL '~' telse ':' SL '~'
+
+    '('  shift, and go to state 25
+
+
+State 14
+
+   20 S: twhile . '(' cexpr ')' ':' SL '~'
+
+    '('  shift, and go to state 26
+
+
+State 15
+
+    8 IDL: tid .
+   17 S: tid . tassign expr ';'
+
+    tassign  shift, and go to state 27
+
+    $default  reduce using rule 8 (IDL)
+
+
+State 16
+
+    4 DL: DL D .
+
+    $default  reduce using rule 4 (DL)
+
+
+State 17
+
+    3 prog: tstart DL SL . tfinish
+   12 SL: SL . S
+
+    error     shift, and go to state 10
+    tfinish   shift, and go to state 28
+    tprint    shift, and go to state 11
+    tprintln  shift, and go to state 12
+    tif       shift, and go to state 13
+    twhile    shift, and go to state 14
+    tid       shift, and go to state 29
+
+    S  go to state 30
+
+
+State 18
+
+   13 SL: S .
+
+    $default  reduce using rule 13 (SL)
+
+
+State 19
+
+    6 D: IDL ':' . type ';'
+
+    tint    shift, and go to state 31
+    tfloat  shift, and go to state 32
+    tbool   shift, and go to state 33
+
+    type  go to state 34
+
+
+State 20
+
+    7 IDL: IDL ',' . tid
+
+    tid  shift, and go to state 35
+
+
+State 21
+
+   21 S: error ';' .
+
+    $default  reduce using rule 21 (S)
+
+
+State 22
+
+   14 S: tprint tstrlit . ';'
+
+    ';'  shift, and go to state 36
+
+
+State 23
+
+   15 S: tprint tid . ';'
+
+    ';'  shift, and go to state 37
+
+
+State 24
+
+   16 S: tprintln ';' .
+
+    $default  reduce using rule 16 (S)
+
+
+State 25
+
+   18 S: tif '(' . cexpr ')' ':' SL '~'
+   19  | tif '(' . cexpr ')' ':' SL '~' telse ':' SL '~'
+
+    tfalse  shift, and go to state 38
+    ttrue   shift, and go to state 39
+    tid     shift, and go to state 40
+    tnum    shift, and go to state 41
+    tor     shift, and go to state 42
+    tand    shift, and go to state 43
+    '('     shift, and go to state 44
+
+    cexpr   go to state 45
+    expr    go to state 46
+    term    go to state 47
+    factor  go to state 48
+
+
+State 26
+
+   20 S: twhile '(' . cexpr ')' ':' SL '~'
+
+    tfalse  shift, and go to state 38
+    ttrue   shift, and go to state 39
+    tid     shift, and go to state 40
+    tnum    shift, and go to state 41
+    tor     shift, and go to state 42
+    tand    shift, and go to state 43
+    '('     shift, and go to state 44
+
+    cexpr   go to state 49
+    expr    go to state 46
+    term    go to state 47
+    factor  go to state 48
+
+
+State 27
+
+   17 S: tid tassign . expr ';'
+
+    tfalse  shift, and go to state 38
+    ttrue   shift, and go to state 39
+    tid     shift, and go to state 40
+    tnum    shift, and go to state 41
+
+    expr    go to state 50
+    term    go to state 47
+    factor  go to state 48
+
+
+State 28
+
+    3 prog: tstart DL SL tfinish .
+
+    $default  reduce using rule 3 (prog)
+
+
+State 29
+
+   17 S: tid . tassign expr ';'
+
+    tassign  shift, and go to state 27
+
+
+State 30
+
+   12 SL: SL S .
+
+    $default  reduce using rule 12 (SL)
+
+
+State 31
+
+    9 type: tint .
+
+    $default  reduce using rule 9 (type)
+
+
+State 32
+
+   10 type: tfloat .
+
+    $default  reduce using rule 10 (type)
+
+
+State 33
+
+   11 type: tbool .
+
+    $default  reduce using rule 11 (type)
+
+
+State 34
+
+    6 D: IDL ':' type . ';'
+
+    ';'  shift, and go to state 51
+
+
+State 35
+
+    7 IDL: IDL ',' tid .
+
+    $default  reduce using rule 7 (IDL)
+
+
+State 36
+
+   14 S: tprint tstrlit ';' .
+
+    $default  reduce using rule 14 (S)
+
+
+State 37
+
+   15 S: tprint tid ';' .
+
+    $default  reduce using rule 15 (S)
+
+
+State 38
+
+   36 factor: tfalse .
+
+    $default  reduce using rule 36 (factor)
+
+
+State 39
+
+   35 factor: ttrue .
+
+    $default  reduce using rule 35 (factor)
+
+
+State 40
+
+   33 factor: tid .
+
+    $default  reduce using rule 33 (factor)
+
+
+State 41
+
+   34 factor: tnum .
+
+    $default  reduce using rule 34 (factor)
+
+
+State 42
+
+   26 cexpr: tor . cexpr '|' cexpr
+
+    tfalse  shift, and go to state 38
+    ttrue   shift, and go to state 39
+    tid     shift, and go to state 40
+    tnum    shift, and go to state 41
+    tor     shift, and go to state 42
+    tand    shift, and go to state 43
+    '('     shift, and go to state 44
+
+    cexpr   go to state 52
+    expr    go to state 46
+    term    go to state 47
+    factor  go to state 48
+
+
+State 43
+
+   27 cexpr: tand . cexpr '|' cexpr
+
+    tfalse  shift, and go to state 38
+    ttrue   shift, and go to state 39
+    tid     shift, and go to state 40
+    tnum    shift, and go to state 41
+    tor     shift, and go to state 42
+    tand    shift, and go to state 43
+    '('     shift, and go to state 44
+
+    cexpr   go to state 53
+    expr    go to state 46
+    term    go to state 47
+    factor  go to state 48
+
+
+State 44
+
+   28 cexpr: '(' . cexpr ')'
+
+    tfalse  shift, and go to state 38
+    ttrue   shift, and go to state 39
+    tid     shift, and go to state 40
+    tnum    shift, and go to state 41
+    tor     shift, and go to state 42
+    tand    shift, and go to state 43
+    '('     shift, and go to state 44
+
+    cexpr   go to state 54
+    expr    go to state 46
+    term    go to state 47
+    factor  go to state 48
+
+
+State 45
+
+   18 S: tif '(' cexpr . ')' ':' SL '~'
+   19  | tif '(' cexpr . ')' ':' SL '~' telse ':' SL '~'
+
+    ')'  shift, and go to state 55
+
+
+State 46
+
+   22 cexpr: expr . tgt expr
+   23      | expr . tlt expr
+   24      | expr . teq expr
+   25      | expr . tne expr
+   29 expr: expr . '+' term
+
+    tlt  shift, and go to state 56
+    tgt  shift, and go to state 57
+    teq  shift, and go to state 58
+    tne  shift, and go to state 59
+    '+'  shift, and go to state 60
+
+
+State 47
+
+   30 expr: term .
+   31 term: term . '*' factor
+
+    '*'  shift, and go to state 61
+
+    $default  reduce using rule 30 (expr)
+
+
+State 48
+
+   32 term: factor .
+
+    $default  reduce using rule 32 (term)
+
+
+State 49
+
+   20 S: twhile '(' cexpr . ')' ':' SL '~'
+
+    ')'  shift, and go to state 62
+
+
+State 50
+
+   17 S: tid tassign expr . ';'
+   29 expr: expr . '+' term
+
+    ';'  shift, and go to state 63
+    '+'  shift, and go to state 60
+
+
+State 51
+
+    6 D: IDL ':' type ';' .
+
+    $default  reduce using rule 6 (D)
+
+
+State 52
+
+   26 cexpr: tor cexpr . '|' cexpr
+
+    '|'  shift, and go to state 64
+
+
+State 53
+
+   27 cexpr: tand cexpr . '|' cexpr
+
+    '|'  shift, and go to state 65
+
+
+State 54
+
+   28 cexpr: '(' cexpr . ')'
+
+    ')'  shift, and go to state 66
+
+
+State 55
+
+   18 S: tif '(' cexpr ')' . ':' SL '~'
+   19  | tif '(' cexpr ')' . ':' SL '~' telse ':' SL '~'
+
+    ':'  shift, and go to state 67
+
+
+State 56
+
+   23 cexpr: expr tlt . expr
+
+    tfalse  shift, and go to state 38
+    ttrue   shift, and go to state 39
+    tid     shift, and go to state 40
+    tnum    shift, and go to state 41
+
+    expr    go to state 68
+    term    go to state 47
+    factor  go to state 48
+
+
+State 57
+
+   22 cexpr: expr tgt . expr
+
+    tfalse  shift, and go to state 38
+    ttrue   shift, and go to state 39
+    tid     shift, and go to state 40
+    tnum    shift, and go to state 41
+
+    expr    go to state 69
+    term    go to state 47
+    factor  go to state 48
+
+
+State 58
+
+   24 cexpr: expr teq . expr
+
+    tfalse  shift, and go to state 38
+    ttrue   shift, and go to state 39
+    tid     shift, and go to state 40
+    tnum    shift, and go to state 41
+
+    expr    go to state 70
+    term    go to state 47
+    factor  go to state 48
+
+
+State 59
+
+   25 cexpr: expr tne . expr
+
+    tfalse  shift, and go to state 38
+    ttrue   shift, and go to state 39
+    tid     shift, and go to state 40
+    tnum    shift, and go to state 41
+
+    expr    go to state 71
+    term    go to state 47
+    factor  go to state 48
+
+
+State 60
+
+   29 expr: expr '+' . term
+
+    tfalse  shift, and go to state 38
+    ttrue   shift, and go to state 39
+    tid     shift, and go to state 40
+    tnum    shift, and go to state 41
+
+    term    go to state 72
+    factor  go to state 48
+
+
+State 61
+
+   31 term: term '*' . factor
+
+    tfalse  shift, and go to state 38
+    ttrue   shift, and go to state 39
+    tid     shift, and go to state 40
+    tnum    shift, and go to state 41
+
+    factor  go to state 73
+
+
+State 62
+
+   20 S: twhile '(' cexpr ')' . ':' SL '~'
+
+    ':'  shift, and go to state 74
+
+
+State 63
+
+   17 S: tid tassign expr ';' .
+
+    $default  reduce using rule 17 (S)
+
+
+State 64
+
+   26 cexpr: tor cexpr '|' . cexpr
+
+    tfalse  shift, and go to state 38
+    ttrue   shift, and go to state 39
+    tid     shift, and go to state 40
+    tnum    shift, and go to state 41
+    tor     shift, and go to state 42
+    tand    shift, and go to state 43
+    '('     shift, and go to state 44
+
+    cexpr   go to state 75
+    expr    go to state 46
+    term    go to state 47
+    factor  go to state 48
+
+
+State 65
+
+   27 cexpr: tand cexpr '|' . cexpr
+
+    tfalse  shift, and go to state 38
+    ttrue   shift, and go to state 39
+    tid     shift, and go to state 40
+    tnum    shift, and go to state 41
+    tor     shift, and go to state 42
+    tand    shift, and go to state 43
+    '('     shift, and go to state 44
+
+    cexpr   go to state 76
+    expr    go to state 46
+    term    go to state 47
+    factor  go to state 48
+
+
+State 66
+
+   28 cexpr: '(' cexpr ')' .
+
+    $default  reduce using rule 28 (cexpr)
+
+
+State 67
+
+   18 S: tif '(' cexpr ')' ':' . SL '~'
+   19  | tif '(' cexpr ')' ':' . SL '~' telse ':' SL '~'
+
+    error     shift, and go to state 10
+    tprint    shift, and go to state 11
+    tprintln  shift, and go to state 12
+    tif       shift, and go to state 13
+    twhile    shift, and go to state 14
+    tid       shift, and go to state 29
+
+    SL  go to state 77
+    S   go to state 18
+
+
+State 68
+
+   23 cexpr: expr tlt expr .
+   29 expr: expr . '+' term
+
+    '+'  shift, and go to state 60
+
+    $default  reduce using rule 23 (cexpr)
+
+
+State 69
+
+   22 cexpr: expr tgt expr .
+   29 expr: expr . '+' term
+
+    '+'  shift, and go to state 60
+
+    $default  reduce using rule 22 (cexpr)
+
+
+State 70
+
+   24 cexpr: expr teq expr .
+   29 expr: expr . '+' term
+
+    '+'  shift, and go to state 60
+
+    $default  reduce using rule 24 (cexpr)
+
+
+State 71
+
+   25 cexpr: expr tne expr .
+   29 expr: expr . '+' term
+
+    '+'  shift, and go to state 60
+
+    $default  reduce using rule 25 (cexpr)
+
+
+State 72
+
+   29 expr: expr '+' term .
+   31 term: term . '*' factor
+
+    '*'  shift, and go to state 61
+
+    $default  reduce using rule 29 (expr)
+
+
+State 73
+
+   31 term: term '*' factor .
+
+    $default  reduce using rule 31 (term)
+
+
+State 74
+
+   20 S: twhile '(' cexpr ')' ':' . SL '~'
+
+    error     shift, and go to state 10
+    tprint    shift, and go to state 11
+    tprintln  shift, and go to state 12
+    tif       shift, and go to state 13
+    twhile    shift, and go to state 14
+    tid       shift, and go to state 29
+
+    SL  go to state 78
+    S   go to state 18
+
+
+State 75
+
+   26 cexpr: tor cexpr '|' cexpr .
+
+    $default  reduce using rule 26 (cexpr)
+
+
+State 76
+
+   27 cexpr: tand cexpr '|' cexpr .
+
+    $default  reduce using rule 27 (cexpr)
+
+
+State 77
+
+   12 SL: SL . S
+   18 S: tif '(' cexpr ')' ':' SL . '~'
+   19  | tif '(' cexpr ')' ':' SL . '~' telse ':' SL '~'
+
+    error     shift, and go to state 10
+    tprint    shift, and go to state 11
+    tprintln  shift, and go to state 12
+    tif       shift, and go to state 13
+    twhile    shift, and go to state 14
+    tid       shift, and go to state 29
+    '~'       shift, and go to state 79
+
+    S  go to state 30
+
+
+State 78
+
+   12 SL: SL . S
+   20 S: twhile '(' cexpr ')' ':' SL . '~'
+
+    error     shift, and go to state 10
+    tprint    shift, and go to state 11
+    tprintln  shift, and go to state 12
+    tif       shift, and go to state 13
+    twhile    shift, and go to state 14
+    tid       shift, and go to state 29
+    '~'       shift, and go to state 80
+
+    S  go to state 30
+
+
+State 79
+
+   18 S: tif '(' cexpr ')' ':' SL '~' .
+   19  | tif '(' cexpr ')' ':' SL '~' . telse ':' SL '~'
+
+    telse  shift, and go to state 81
+
+    $default  reduce using rule 18 (S)
+
+
+State 80
+
+   20 S: twhile '(' cexpr ')' ':' SL '~' .
+
+    $default  reduce using rule 20 (S)
+
+
+State 81
+
+   19 S: tif '(' cexpr ')' ':' SL '~' telse . ':' SL '~'
+
+    ':'  shift, and go to state 82
+
+
+State 82
+
+   19 S: tif '(' cexpr ')' ':' SL '~' telse ':' . SL '~'
+
+    error     shift, and go to state 10
+    tprint    shift, and go to state 11
+    tprintln  shift, and go to state 12
+    tif       shift, and go to state 13
+    twhile    shift, and go to state 14
+    tid       shift, and go to state 29
+
+    SL  go to state 83
+    S   go to state 18
+
+
+State 83
+
+   12 SL: SL . S
+   19 S: tif '(' cexpr ')' ':' SL '~' telse ':' SL . '~'
+
+    error     shift, and go to state 10
+    tprint    shift, and go to state 11
+    tprintln  shift, and go to state 12
+    tif       shift, and go to state 13
+    twhile    shift, and go to state 14
+    tid       shift, and go to state 29
+    '~'       shift, and go to state 84
+
+    S  go to state 30
+
+
+State 84
+
+   19 S: tif '(' cexpr ')' ':' SL '~' telse ':' SL '~' .
+
+    $default  reduce using rule 19 (S)

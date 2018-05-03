@@ -1,0 +1,11 @@
+simple
+
+int : x;
+
+if (x > y )
+{
+	z = 13;
+	r = w * f;
+}
+end
+

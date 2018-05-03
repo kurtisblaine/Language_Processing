@@ -1,0 +1,24 @@
+START
+  yes: INT;
+  x: BOOL;
+ yes := x + 5 ;
+IF ( yes NE 10 ):
+        PRINT "HERE";
+~
+IF ( yes NE 10 ):
+        PRINT "HERE";
+~
+ELSE:
+	PRINT "HERE";
+~
+WHILE ( yes NE 10 ):
+        PRINT "HERE";
+~
+WHILE ( BOTH yes NE 10 | x LT 38 ):
+        PRINT "HERE";
+~
+WHILE ( EITHER yes NE 10 | x LT 38 ):
+        PRINT "HERE";
+~
+ PRINT yes;
+FINISH

@@ -1,0 +1,10 @@
+for assignment 2 version 1
+gcc a2v1.c -o a2v1.o 
+
+for assignment 2 version 2
+gcc a2v2.c -o a2v1.o
+
+./a.out < (test file name)
+
+Test Files Include:
+idc

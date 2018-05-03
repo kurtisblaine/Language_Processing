@@ -1,0 +1,9 @@
+simple
+  int : x ; 
+
+  w = 5;
+  if ( a >= b )
+      gg = hh + ii;
+  x = y + 3 * z;
+  s = 12;
+end

@@ -1,0 +1,9 @@
+lex a3v1.l, a3v2.l, or a3v3.l
+
+gcc lex.yy.c -ll
+
+./a.out
+
+directed input 
+
+./a.out < text, text2, or text3

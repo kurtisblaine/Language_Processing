@@ -1,0 +1,8 @@
+simple
+  int : x ; 
+
+  w = 5;
+  if ( a >= b )
+      gg = hh + ii;
+  s = 12;
+end

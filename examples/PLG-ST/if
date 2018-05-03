@@ -1,0 +1,10 @@
+
+START
+  aa, bb, cc: INT;
+ aa := x + 5 * bb ;
+ IF ( x GT 5 )
+  BEGIN
+	PRINTLN ;
+  END;
+FINISH
+

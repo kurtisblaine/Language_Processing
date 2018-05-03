@@ -1,0 +1,14 @@
+clr;
+plus 2;
+disp;
+plus 5;
+disp;
+sub 3;
+disp;
+mod 3;
+disp;
+get;
+plus 3;
+sub 1;
+mod 2;
+disp;

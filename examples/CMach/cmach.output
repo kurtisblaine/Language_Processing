@@ -1,0 +1,230 @@
+Grammar
+
+    0 $accept: program $end
+
+    1 program: input
+
+    2 input: %empty
+    3      | input line
+
+    4 line: ';'
+    5     | cmd ';'
+
+    6 cmd: CLEAR
+    7    | SHOW
+    8    | GET
+    9    | REP NUM cmd
+   10    | ADD NUM
+   11    | MULT NUM
+   12    | SUB NUM
+   13    | MOD NUM
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+';' (59) 4 5
+error (256)
+NUM (258) 9 10 11 12 13
+CLEAR (259) 6
+ADD (260) 10
+MULT (261) 11
+SHOW (262) 7
+GET (263) 8
+MOD (264) 13
+SUB (265) 12
+REP (266) 9
+
+
+Nonterminals, with rules where they appear
+
+$accept (13)
+    on left: 0
+program (14)
+    on left: 1, on right: 0
+input (15)
+    on left: 2 3, on right: 1 3
+line (16)
+    on left: 4 5, on right: 3
+cmd (17)
+    on left: 6 7 8 9 10 11 12 13, on right: 5 9
+
+
+State 0
+
+    0 $accept: . program $end
+
+    $default  reduce using rule 2 (input)
+
+    program  go to state 1
+    input    go to state 2
+
+
+State 1
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 3
+
+
+State 2
+
+    1 program: input .
+    3 input: input . line
+
+    CLEAR  shift, and go to state 4
+    ADD    shift, and go to state 5
+    MULT   shift, and go to state 6
+    SHOW   shift, and go to state 7
+    GET    shift, and go to state 8
+    MOD    shift, and go to state 9
+    SUB    shift, and go to state 10
+    REP    shift, and go to state 11
+    ';'    shift, and go to state 12
+
+    $default  reduce using rule 1 (program)
+
+    line  go to state 13
+    cmd   go to state 14
+
+
+State 3
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+State 4
+
+    6 cmd: CLEAR .
+
+    $default  reduce using rule 6 (cmd)
+
+
+State 5
+
+   10 cmd: ADD . NUM
+
+    NUM  shift, and go to state 15
+
+
+State 6
+
+   11 cmd: MULT . NUM
+
+    NUM  shift, and go to state 16
+
+
+State 7
+
+    7 cmd: SHOW .
+
+    $default  reduce using rule 7 (cmd)
+
+
+State 8
+
+    8 cmd: GET .
+
+    $default  reduce using rule 8 (cmd)
+
+
+State 9
+
+   13 cmd: MOD . NUM
+
+    NUM  shift, and go to state 17
+
+
+State 10
+
+   12 cmd: SUB . NUM
+
+    NUM  shift, and go to state 18
+
+
+State 11
+
+    9 cmd: REP . NUM cmd
+
+    NUM  shift, and go to state 19
+
+
+State 12
+
+    4 line: ';' .
+
+    $default  reduce using rule 4 (line)
+
+
+State 13
+
+    3 input: input line .
+
+    $default  reduce using rule 3 (input)
+
+
+State 14
+
+    5 line: cmd . ';'
+
+    ';'  shift, and go to state 20
+
+
+State 15
+
+   10 cmd: ADD NUM .
+
+    $default  reduce using rule 10 (cmd)
+
+
+State 16
+
+   11 cmd: MULT NUM .
+
+    $default  reduce using rule 11 (cmd)
+
+
+State 17
+
+   13 cmd: MOD NUM .
+
+    $default  reduce using rule 13 (cmd)
+
+
+State 18
+
+   12 cmd: SUB NUM .
+
+    $default  reduce using rule 12 (cmd)
+
+
+State 19
+
+    9 cmd: REP NUM . cmd
+
+    CLEAR  shift, and go to state 4
+    ADD    shift, and go to state 5
+    MULT   shift, and go to state 6
+    SHOW   shift, and go to state 7
+    GET    shift, and go to state 8
+    MOD    shift, and go to state 9
+    SUB    shift, and go to state 10
+    REP    shift, and go to state 11
+
+    cmd  go to state 21
+
+
+State 20
+
+    5 line: cmd ';' .
+
+    $default  reduce using rule 5 (line)
+
+
+State 21
+
+    9 cmd: REP NUM cmd .
+
+    $default  reduce using rule 9 (cmd)

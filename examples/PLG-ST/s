@@ -1,0 +1,6 @@
+
+START
+  aa, bb, cc: INT;
+ y := x + 5 * bb ;
+FINISH
+

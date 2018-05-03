@@ -1,0 +1,8 @@
+
+START
+  yes: INT;
+  x: BOOL;
+ yes := x + 5 ;
+ PRINT yesitis;
+FINISH
+

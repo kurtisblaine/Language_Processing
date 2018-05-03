@@ -1,0 +1,12 @@
+simple
+  int : x ; 
+
+  w = 5;
+  if ( a >= b )
+  {
+      gg = hh + ii;
+      jj = 123;
+  }
+  x = y + 3 * z;
+  s = 12;
+end

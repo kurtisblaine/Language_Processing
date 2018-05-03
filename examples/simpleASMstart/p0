@@ -1,0 +1,6 @@
+simple
+  int : x ; 
+
+  w = 5;
+  s = 12 + w * y + 17;
+end

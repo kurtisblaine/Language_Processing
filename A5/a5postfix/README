@@ -1,0 +1,12 @@
+To compile program run
+	
+	g++ a5postfix.gcc
+	./a.out
+
+Enter post fix expression:
+	
+	4 3 +
+	5 6 *
+	5 9 -
+	3 3 -
+	

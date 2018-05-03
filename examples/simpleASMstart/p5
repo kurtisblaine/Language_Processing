@@ -1,0 +1,16 @@
+simple
+
+int : x;
+int : bar;
+
+get x;
+
+bar = 10;
+z = 0;
+
+if (x > bar )
+{
+	z = 1;
+}
+end
+

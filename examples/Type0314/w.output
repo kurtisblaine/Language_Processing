@@ -1,0 +1,512 @@
+Terminals unused in grammar
+
+   tbegin
+   tend
+   tif
+   twhile
+   tlt
+   tgt
+   teq
+
+
+Grammar
+
+    0 $accept: p $end
+
+    1 p: prog
+
+    2 prog: tstart tfinish
+    3     | tstart DL SL tfinish
+
+    4 DL: DL D
+    5   | D
+
+    6 D: tid Dtail
+
+    7 Dtail: ',' tid Dtail
+    8      | ':' type ';'
+
+    9 type: tint
+   10     | tfloat
+   11     | tbool
+
+   12 SL: SL S
+   13   | S
+
+   14 S: tprint tstrlit ';'
+   15  | tprint tid ';'
+   16  | tprintln ';'
+   17  | tid tassign expr ';'
+   18  | error ';'
+
+   19 expr: expr '+' term
+   20     | term
+
+   21 term: term '*' factor
+   22     | factor
+
+   23 factor: tid
+   24       | tnum
+   25       | ttrue
+   26       | tfalse
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'*' (42) 21
+'+' (43) 19
+',' (44) 7
+':' (58) 8
+';' (59) 8 14 15 16 17 18
+error (256) 18
+tstart (258) 2 3
+tfinish (259) 2 3
+tbegin (260)
+tend (261)
+tint (262) 9
+tfloat (263) 10
+tbool (264) 11
+tprint (265) 14 15
+tprintln (266) 16
+tif (267)
+twhile (268)
+tlt (269)
+tgt (270)
+teq (271)
+tfalse (272) 26
+ttrue (273) 25
+tassign (274) 17
+tstrlit (275) 14
+tid (276) 6 7 15 17 23
+tnum (277) 24
+
+
+Nonterminals, with rules where they appear
+
+$accept (28)
+    on left: 0
+p (29)
+    on left: 1, on right: 0
+prog (30)
+    on left: 2 3, on right: 1
+DL (31)
+    on left: 4 5, on right: 3 4
+D (32)
+    on left: 6, on right: 4 5
+Dtail (33)
+    on left: 7 8, on right: 6 7
+type (34)
+    on left: 9 10 11, on right: 8
+SL (35)
+    on left: 12 13, on right: 3 12
+S (36)
+    on left: 14 15 16 17 18, on right: 12 13
+expr (37)
+    on left: 19 20, on right: 17 19
+term (38)
+    on left: 21 22, on right: 19 20 21
+factor (39)
+    on left: 23 24 25 26, on right: 21 22
+
+
+State 0
+
+    0 $accept: . p $end
+
+    tstart  shift, and go to state 1
+
+    p     go to state 2
+    prog  go to state 3
+
+
+State 1
+
+    2 prog: tstart . tfinish
+    3     | tstart . DL SL tfinish
+
+    tfinish  shift, and go to state 4
+    tid      shift, and go to state 5
+
+    DL  go to state 6
+    D   go to state 7
+
+
+State 2
+
+    0 $accept: p . $end
+
+    $end  shift, and go to state 8
+
+
+State 3
+
+    1 p: prog .
+
+    $default  reduce using rule 1 (p)
+
+
+State 4
+
+    2 prog: tstart tfinish .
+
+    $default  reduce using rule 2 (prog)
+
+
+State 5
+
+    6 D: tid . Dtail
+
+    ','  shift, and go to state 9
+    ':'  shift, and go to state 10
+
+    Dtail  go to state 11
+
+
+State 6
+
+    3 prog: tstart DL . SL tfinish
+    4 DL: DL . D
+
+    error     shift, and go to state 12
+    tprint    shift, and go to state 13
+    tprintln  shift, and go to state 14
+    tid       shift, and go to state 15
+
+    D   go to state 16
+    SL  go to state 17
+    S   go to state 18
+
+
+State 7
+
+    5 DL: D .
+
+    $default  reduce using rule 5 (DL)
+
+
+State 8
+
+    0 $accept: p $end .
+
+    $default  accept
+
+
+State 9
+
+    7 Dtail: ',' . tid Dtail
+
+    tid  shift, and go to state 19
+
+
+State 10
+
+    8 Dtail: ':' . type ';'
+
+    tint    shift, and go to state 20
+    tfloat  shift, and go to state 21
+    tbool   shift, and go to state 22
+
+    type  go to state 23
+
+
+State 11
+
+    6 D: tid Dtail .
+
+    $default  reduce using rule 6 (D)
+
+
+State 12
+
+   18 S: error . ';'
+
+    ';'  shift, and go to state 24
+
+
+State 13
+
+   14 S: tprint . tstrlit ';'
+   15  | tprint . tid ';'
+
+    tstrlit  shift, and go to state 25
+    tid      shift, and go to state 26
+
+
+State 14
+
+   16 S: tprintln . ';'
+
+    ';'  shift, and go to state 27
+
+
+State 15
+
+    6 D: tid . Dtail
+   17 S: tid . tassign expr ';'
+
+    tassign  shift, and go to state 28
+    ','      shift, and go to state 9
+    ':'      shift, and go to state 10
+
+    Dtail  go to state 11
+
+
+State 16
+
+    4 DL: DL D .
+
+    $default  reduce using rule 4 (DL)
+
+
+State 17
+
+    3 prog: tstart DL SL . tfinish
+   12 SL: SL . S
+
+    error     shift, and go to state 12
+    tfinish   shift, and go to state 29
+    tprint    shift, and go to state 13
+    tprintln  shift, and go to state 14
+    tid       shift, and go to state 30
+
+    S  go to state 31
+
+
+State 18
+
+   13 SL: S .
+
+    $default  reduce using rule 13 (SL)
+
+
+State 19
+
+    7 Dtail: ',' tid . Dtail
+
+    ','  shift, and go to state 9
+    ':'  shift, and go to state 10
+
+    Dtail  go to state 32
+
+
+State 20
+
+    9 type: tint .
+
+    $default  reduce using rule 9 (type)
+
+
+State 21
+
+   10 type: tfloat .
+
+    $default  reduce using rule 10 (type)
+
+
+State 22
+
+   11 type: tbool .
+
+    $default  reduce using rule 11 (type)
+
+
+State 23
+
+    8 Dtail: ':' type . ';'
+
+    ';'  shift, and go to state 33
+
+
+State 24
+
+   18 S: error ';' .
+
+    $default  reduce using rule 18 (S)
+
+
+State 25
+
+   14 S: tprint tstrlit . ';'
+
+    ';'  shift, and go to state 34
+
+
+State 26
+
+   15 S: tprint tid . ';'
+
+    ';'  shift, and go to state 35
+
+
+State 27
+
+   16 S: tprintln ';' .
+
+    $default  reduce using rule 16 (S)
+
+
+State 28
+
+   17 S: tid tassign . expr ';'
+
+    tfalse  shift, and go to state 36
+    ttrue   shift, and go to state 37
+    tid     shift, and go to state 38
+    tnum    shift, and go to state 39
+
+    expr    go to state 40
+    term    go to state 41
+    factor  go to state 42
+
+
+State 29
+
+    3 prog: tstart DL SL tfinish .
+
+    $default  reduce using rule 3 (prog)
+
+
+State 30
+
+   17 S: tid . tassign expr ';'
+
+    tassign  shift, and go to state 28
+
+
+State 31
+
+   12 SL: SL S .
+
+    $default  reduce using rule 12 (SL)
+
+
+State 32
+
+    7 Dtail: ',' tid Dtail .
+
+    $default  reduce using rule 7 (Dtail)
+
+
+State 33
+
+    8 Dtail: ':' type ';' .
+
+    $default  reduce using rule 8 (Dtail)
+
+
+State 34
+
+   14 S: tprint tstrlit ';' .
+
+    $default  reduce using rule 14 (S)
+
+
+State 35
+
+   15 S: tprint tid ';' .
+
+    $default  reduce using rule 15 (S)
+
+
+State 36
+
+   26 factor: tfalse .
+
+    $default  reduce using rule 26 (factor)
+
+
+State 37
+
+   25 factor: ttrue .
+
+    $default  reduce using rule 25 (factor)
+
+
+State 38
+
+   23 factor: tid .
+
+    $default  reduce using rule 23 (factor)
+
+
+State 39
+
+   24 factor: tnum .
+
+    $default  reduce using rule 24 (factor)
+
+
+State 40
+
+   17 S: tid tassign expr . ';'
+   19 expr: expr . '+' term
+
+    ';'  shift, and go to state 43
+    '+'  shift, and go to state 44
+
+
+State 41
+
+   20 expr: term .
+   21 term: term . '*' factor
+
+    '*'  shift, and go to state 45
+
+    $default  reduce using rule 20 (expr)
+
+
+State 42
+
+   22 term: factor .
+
+    $default  reduce using rule 22 (term)
+
+
+State 43
+
+   17 S: tid tassign expr ';' .
+
+    $default  reduce using rule 17 (S)
+
+
+State 44
+
+   19 expr: expr '+' . term
+
+    tfalse  shift, and go to state 36
+    ttrue   shift, and go to state 37
+    tid     shift, and go to state 38
+    tnum    shift, and go to state 39
+
+    term    go to state 46
+    factor  go to state 42
+
+
+State 45
+
+   21 term: term '*' . factor
+
+    tfalse  shift, and go to state 36
+    ttrue   shift, and go to state 37
+    tid     shift, and go to state 38
+    tnum    shift, and go to state 39
+
+    factor  go to state 47
+
+
+State 46
+
+   19 expr: expr '+' term .
+   21 term: term . '*' factor
+
+    '*'  shift, and go to state 45
+
+    $default  reduce using rule 19 (expr)
+
+
+State 47
+
+   21 term: term '*' factor .
+
+    $default  reduce using rule 21 (term)

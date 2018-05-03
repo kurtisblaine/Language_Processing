@@ -1,0 +1,7 @@
+simple
+  int : x ; 
+
+  w = 5;
+  x = y + 3 * z;
+  s = 12;
+end
